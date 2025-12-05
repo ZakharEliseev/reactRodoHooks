@@ -66,7 +66,7 @@ export const App = () => {
   }
 
   const totalPages = Math.ceil(handleGetFilteredList().length / TASK_PER_PAGE);
-  console.log(handleGetFilteredList().length);
+  
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
