@@ -1,38 +1,37 @@
 import { useState } from 'react';
 
-import { Task } from '@/models/types';
+import { FilterState, Task } from '@/models/types';
 
 import { TodoFilters } from './todoFilters/TodoFilters';
 import { TodoForm } from './todoForm/TodoForm';
 import { TodoListItems } from './todoListItems/TodoListItems';
 
-
 import classes from './App.module.scss';
-
-
 
 export const App = () => {
   const [list, setList] = useState<Task[]>([]);
-  const [task, setTask] = useState('');
+  const [text, setText] = useState('');
+  const [activeFilter, setFilter] = useState(FilterState.ALL)
 
-  const addTask = (e: React.FormEvent) => {
+  const handleAddTask = (e: React.FormEvent<Element>): void => {
     e.preventDefault();
     const newTask = {
       id: Date.now(),
-      text: task,
+      text: text,
       isComplete: false,
     }
-    setList((prev) => ([...prev, newTask]));
-    setTask('')
+    setList((prev: Task[]) => [...prev, newTask]);
+    setText('');
   }
 
-  const deleteTask = (id: number) => {
-    setList(list.filter((task) => task.id !== id))
+  const handleDeleteTask = (id: number): void => {
+    setList((prev) => prev.filter((task: Task) => task.id !== id))
   }
 
-  const toggleStatus = (id: number) => {
+
+  const toggleStatus = (id: number): void => {
     setList(
-      list.map((task) => {
+      list.map((task: Task) => {
         return {
           ...task,
           isComplete: task.id === id ? !task.isComplete : task.isComplete,
@@ -41,12 +40,17 @@ export const App = () => {
     );
   }
 
+  const handleSetActiveFilter = (filterName: FilterState): void => {
+    setFilter(filterName)
+    console.log('>>', activeFilter)
+  }
+
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
-      <TodoForm onSubmit={addTask} task={task} onChange={setTask} />
-      <TodoListItems list={list} onDelete={deleteTask} onComplete={toggleStatus} />
-      <TodoFilters />
+      <TodoForm onSubmit={handleAddTask} task={text} onInputChange={setText} />
+      <TodoListItems list={list} onDelete={handleDeleteTask} onComplete={toggleStatus} />
+      <TodoFilters onSetActiveFilter={handleSetActiveFilter}/>
     </>
   );
 };

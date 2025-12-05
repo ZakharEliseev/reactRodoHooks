@@ -1,12 +1,12 @@
 export interface Task {
   id: number;
   text: string;
-  isComplete: boolean
+  isComplete: boolean;
 }
 
 export interface TodoFormProps {
   task: string;
-  onChange: (value: string) => void;
+  onInputChange: (value: string) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
@@ -21,3 +21,13 @@ export interface TodoListItemProps {
   onComplete: (id: number) => void;
   list: Task[];
 }
+
+export enum FilterState {
+  ALL = 'all',
+  COMPLETE = 'complete',
+  ACTIVE = 'active',
+}
+
+export interface TodoFiltersProps {
+  onSetActiveFilter: (filterName: FilterState) => void;
+};
