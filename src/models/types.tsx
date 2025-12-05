@@ -34,6 +34,8 @@ export interface TodoFiltersProps {
 };
 
 export interface TodoPaginatorProps {
+  onSetCurrentPage: (page: number) => void;
   list: Task[];
   totalPages: number;
+  currentPage: number;
 }

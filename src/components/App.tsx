@@ -14,7 +14,7 @@ export const App = () => {
   const [list, setList] = useState<Task[]>([]);
   const [text, setText] = useState('');
   const [activeFilter, setFilter] = useState(FilterState.ALL);
-  const [currentPage, setActivePage] = useState(INITIAL_PAGE);
+  const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
 
   const handleAddTask = (e: React.FormEvent<Element>): void => {
     e.preventDefault();
@@ -61,6 +61,10 @@ export const App = () => {
     return handleGetFilteredList().slice(start, end);
   }
 
+  const handleSetCurrentPage = (page: number): void => {
+    setCurrentPage(page)
+  }
+
   const totalPages = Math.ceil(handleGetFilteredList().length / TASK_PER_PAGE);
   console.log(handleGetFilteredList().length);
   return (
@@ -73,7 +77,12 @@ export const App = () => {
         onComplete={toggleStatus}
       />
       <TodoFilters onSetActiveFilter={handleSetActiveFilter} onCurrentFilter={activeFilter} />
-      <TodoPaginator list={getPaginatedTask()} totalPages={totalPages} />
+      <TodoPaginator
+        list={getPaginatedTask()}
+        totalPages={totalPages}
+        currentPage={currentPage}
+        onSetCurrentPage={handleSetCurrentPage}
+      />
     </>
   );
 };
