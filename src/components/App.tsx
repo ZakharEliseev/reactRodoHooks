@@ -66,7 +66,7 @@ export const App = () => {
   }
 
   const totalPages = Math.ceil(handleGetFilteredList().length / TASK_PER_PAGE);
-  
+
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
@@ -76,7 +76,11 @@ export const App = () => {
         onDelete={handleDeleteTask}
         onComplete={toggleStatus}
       />
-      <TodoFilters onSetActiveFilter={handleSetActiveFilter} onCurrentFilter={activeFilter} />
+      <TodoFilters
+        onSetActiveFilter={handleSetActiveFilter}
+        onCurrentFilter={activeFilter}
+        onSetCurrentPage={handleSetCurrentPage}
+      />
       <TodoPaginator
         list={getPaginatedTask()}
         totalPages={totalPages}

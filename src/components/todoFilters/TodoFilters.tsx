@@ -1,4 +1,4 @@
-import { FilterState } from '@/models/constants';
+import { FilterState, INITIAL_PAGE } from '@/models/constants';
 import { TodoFiltersProps } from '@/models/types';
 
 import classes from './TodoFilters.module.scss';
@@ -18,7 +18,7 @@ const filtersMap = [
   },
 ];
 
-export const TodoFilters = ({ onSetActiveFilter, onCurrentFilter }: TodoFiltersProps) => {
+export const TodoFilters = ({ onSetActiveFilter, onCurrentFilter, onSetCurrentPage }: TodoFiltersProps) => {
   return (
     <div className={classes.todoFilters}>
       {filtersMap.map(({ label, value }) => (
@@ -26,7 +26,10 @@ export const TodoFilters = ({ onSetActiveFilter, onCurrentFilter }: TodoFiltersP
           className={onCurrentFilter === value? classes.activeButton : ''}
           key={value}
           title={label}
-          onClick={(): void => onSetActiveFilter(value)}>
+          onClick={(): void => {
+            onSetActiveFilter(value)
+            onSetCurrentPage(INITIAL_PAGE);
+            }}>
           {label}
         </button>
       ))}

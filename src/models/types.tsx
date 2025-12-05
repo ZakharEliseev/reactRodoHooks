@@ -31,6 +31,7 @@ export enum FilterState {
 export interface TodoFiltersProps {
   onSetActiveFilter: (filterName: FilterState) => void;
   onCurrentFilter: FilterState;
+  onSetCurrentPage:(page: number) => void;
 };
 
 export interface TodoPaginatorProps {
