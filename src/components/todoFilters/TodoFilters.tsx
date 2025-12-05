@@ -18,11 +18,12 @@ const filtersMap = [
   },
 ];
 
-export const TodoFilters = ({ onSetActiveFilter }: TodoFiltersProps) => {
+export const TodoFilters = ({ onSetActiveFilter, onCurrentFilter }: TodoFiltersProps) => {
   return (
     <div className={classes.todoFilters}>
       {filtersMap.map(({ label, value }) => (
         <button
+          className={onCurrentFilter === value? classes.activeButton : ''}
           key={value}
           title={label}
           onClick={(): void => onSetActiveFilter(value)}>

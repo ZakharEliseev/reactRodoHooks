@@ -30,4 +30,5 @@ export enum FilterState {
 
 export interface TodoFiltersProps {
   onSetActiveFilter: (filterName: FilterState) => void;
+  onCurrentFilter: FilterState;
 };
