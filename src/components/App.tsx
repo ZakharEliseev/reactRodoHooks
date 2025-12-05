@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
+import { INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
 import { FilterState, Task } from '@/models/types';
 
 import { TodoFilters } from './todoFilters/TodoFilters';
 import { TodoForm } from './todoForm/TodoForm';
 import { TodoListItems } from './todoListItems/TodoListItems';
+import { TodoPaginator } from './todoPaginator/TodoPaginator';
 
 import classes from './App.module.scss';
 
@@ -12,6 +14,7 @@ export const App = () => {
   const [list, setList] = useState<Task[]>([]);
   const [text, setText] = useState('');
   const [activeFilter, setFilter] = useState(FilterState.ALL);
+  const [currentPage, setActivePage] = useState(INITIAL_PAGE);
 
   const handleAddTask = (e: React.FormEvent<Element>): void => {
     e.preventDefault();
@@ -52,16 +55,25 @@ export const App = () => {
     );
   };
 
+  const getPaginatedTask = (): Task[] => {
+    const start = (currentPage - INITIAL_PAGE) * TASK_PER_PAGE;
+    const end = currentPage * TASK_PER_PAGE;
+    return handleGetFilteredList().slice(start, end);
+  }
+
+  const totalPages = Math.ceil(handleGetFilteredList().length / TASK_PER_PAGE);
+  console.log(handleGetFilteredList().length);
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
       <TodoForm onSubmit={handleAddTask} task={text} onInputChange={setText} />
       <TodoListItems
-        list={handleGetFilteredList()}
+        list={getPaginatedTask()}
         onDelete={handleDeleteTask}
         onComplete={toggleStatus}
       />
-      <TodoFilters onSetActiveFilter={handleSetActiveFilter} onCurrentFilter={activeFilter}/>
+      <TodoFilters onSetActiveFilter={handleSetActiveFilter} onCurrentFilter={activeFilter} />
+      <TodoPaginator list={getPaginatedTask()} totalPages={totalPages} />
     </>
   );
 };

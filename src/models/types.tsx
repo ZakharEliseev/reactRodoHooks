@@ -32,3 +32,8 @@ export interface TodoFiltersProps {
   onSetActiveFilter: (filterName: FilterState) => void;
   onCurrentFilter: FilterState;
 };
+
+export interface TodoPaginatorProps {
+  list: Task[];
+  totalPages: number;
+}
