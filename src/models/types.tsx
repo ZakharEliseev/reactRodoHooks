@@ -11,11 +11,13 @@ export interface TodoFormProps {
 }
 
 export interface TodoItemProps {
-  onDelete: (id: string | number) => void;
+  onDelete: (id: number) => void;
+  onComplete: (id: number) => void;
   task: Task;
 }
 
 export interface TodoListItemProps {
-  onDelete: (id: string | number) => void;
+  onDelete: (id: number) => void;
+  onComplete: (id: number) => void;
   list: Task[];
 }
