@@ -46,12 +46,12 @@ export const App = () => {
     );
   },[list, activeFilter]);
 
-  const getPaginatedTask = (): Task[] => {
+  const paginatedTask = useMemo((): Task[] => {
     const start = (currentPage - INITIAL_PAGE) * TASK_PER_PAGE;
     const end = currentPage * TASK_PER_PAGE;
     return getFilteredList.slice(start, end);
-  }
-  const paginatedTask:Task[] = getPaginatedTask();
+  }, [getFilteredList])
+
 
   const totalPages = Math.ceil(getFilteredList.length / TASK_PER_PAGE);
 
