@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import { INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
 import { FilterState, Task } from '@/models/types';
@@ -31,6 +31,7 @@ export const App = () => {
       }),
     );
   };
+
 
   const handleSetActiveFilter = (filterName: FilterState): void => {
     setFilter(filterName);
@@ -66,7 +67,6 @@ export const App = () => {
         onSetCurrentPage={setCurrentPage}
       />
       <Pagination
-        list={paginatedTask}
         totalPages={totalPages}
         currentPage={currentPage}
         onSetCurrentPage={setCurrentPage}
