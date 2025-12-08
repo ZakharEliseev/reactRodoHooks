@@ -12,20 +12,10 @@ import classes from './App.module.scss';
 
 export const App = () => {
   const [list, setList] = useState<Task[]>([]);
-  const [text, setText] = useState('');
   const [activeFilter, setFilter] = useState(FilterState.ALL);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
 
-  const handleAddTask = (e: React.FormEvent<Element>): void => {
-    e.preventDefault();
-    const newTask = {
-      id: Date.now(),
-      text: text,
-      isComplete: false,
-    };
-    setList((prev: Task[]) => [...prev, newTask]);
-    setText('');
-  };
+  const onSubmit = (task: Task): void => setList((prev: Task[]): Task[] => [...prev, task])
 
   const handleDeleteTask = (id: number): void => {
     setList((prev) => prev.filter((task: Task) => task.id !== id));
@@ -70,7 +60,7 @@ export const App = () => {
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
-      <Form onSubmit={handleAddTask} task={text} onInputChange={setText} />
+      <Form onSubmit={onSubmit} />
       <List list={getPaginatedTask()} onDelete={handleDeleteTask} onComplete={toggleStatus} />
       <Filters
         onSetActiveFilter={handleSetActiveFilter}

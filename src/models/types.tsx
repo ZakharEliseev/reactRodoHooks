@@ -5,9 +5,7 @@ export interface Task {
 }
 
 export interface TodoFormProps {
-  task: string;
-  onInputChange: (value: string) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  onSubmit: (task: Task) => void;
 }
 
 export interface TodoItemProps {

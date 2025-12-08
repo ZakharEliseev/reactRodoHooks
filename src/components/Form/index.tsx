@@ -1,21 +1,34 @@
+import { useState } from 'react';
+
 import { TodoFormProps } from '@/models/types';
 
 import classes from './index.module.scss';
 
+export const Form = ({ onSubmit }: TodoFormProps) => {
+  const [text, setText] = useState('');
 
+  const handleSubmit = (e: React.FormEvent<Element>): void => {
+    e.preventDefault();
+    const newTask = {
+      id: Date.now(),
+      text: text,
+      isComplete: false,
+    };
+    onSubmit(newTask);
+    setText('');
+  };
 
-export const Form = ({ task, onInputChange, onSubmit }: TodoFormProps) => {
   return (
-    <form className={classes.todoForm} onSubmit={onSubmit}>
+    <form className={classes.todoForm} onSubmit={handleSubmit}>
       <input
         type="text"
         name="task"
         placeholder="add your task here..."
         className={classes.todoFormInput}
-        value={task}
-        onChange={(e) => onInputChange(e.target.value)}
+        value={text}
+        onChange={e => setText(e.target.value)}
       />
       <button type="submit">Add</button>
     </form>
   );
-}; 
+};
