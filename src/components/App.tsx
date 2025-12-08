@@ -3,10 +3,10 @@ import { useState } from 'react';
 import { INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
 import { FilterState, Task } from '@/models/types';
 
-import { TodoFilters } from './todoFilters/TodoFilters';
-import { TodoForm } from './todoForm/TodoForm';
-import { TodoListItems } from './todoListItems/TodoListItems';
-import { TodoPaginator } from './todoPaginator/TodoPaginator';
+import { Filters } from './Filters';
+import { Form } from './Form';
+import { List } from './List';
+import { Pagination } from './Pagination';
 
 import classes from './App.module.scss';
 
@@ -70,18 +70,14 @@ export const App = () => {
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
-      <TodoForm onSubmit={handleAddTask} task={text} onInputChange={setText} />
-      <TodoListItems
-        list={getPaginatedTask()}
-        onDelete={handleDeleteTask}
-        onComplete={toggleStatus}
-      />
-      <TodoFilters
+      <Form onSubmit={handleAddTask} task={text} onInputChange={setText} />
+      <List list={getPaginatedTask()} onDelete={handleDeleteTask} onComplete={toggleStatus} />
+      <Filters
         onSetActiveFilter={handleSetActiveFilter}
         onCurrentFilter={activeFilter}
         onSetCurrentPage={handleSetCurrentPage}
       />
-      <TodoPaginator
+      <Pagination
         list={getPaginatedTask()}
         totalPages={totalPages}
         currentPage={currentPage}

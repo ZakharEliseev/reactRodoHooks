@@ -1,7 +1,7 @@
 import { FilterState, INITIAL_PAGE } from '@/models/constants';
 import { TodoFiltersProps } from '@/models/types';
 
-import classes from './TodoFilters.module.scss';
+import classes from './index.module.scss';
 
 const filtersMap = [
   {
@@ -18,7 +18,7 @@ const filtersMap = [
   },
 ];
 
-export const TodoFilters = ({ onSetActiveFilter, onCurrentFilter, onSetCurrentPage }: TodoFiltersProps) => {
+export const Filters = ({ onSetActiveFilter, onCurrentFilter, onSetCurrentPage }: TodoFiltersProps) => {
   return (
     <div className={classes.todoFilters}>
       {filtersMap.map(({ label, value }) => (

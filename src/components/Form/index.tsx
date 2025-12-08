@@ -1,10 +1,10 @@
 import { TodoFormProps } from '@/models/types';
 
-import classes from './TodoForm.module.scss';
+import classes from './index.module.scss';
 
 
 
-export const TodoForm = ({ task, onInputChange, onSubmit }: TodoFormProps) => {
+export const Form = ({ task, onInputChange, onSubmit }: TodoFormProps) => {
   return (
     <form className={classes.todoForm} onSubmit={onSubmit}>
       <input
