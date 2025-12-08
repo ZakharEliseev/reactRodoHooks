@@ -15,7 +15,7 @@ export const App = () => {
   const [activeFilter, setFilter] = useState(FilterState.ALL);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
 
-  const onSubmit = (task: Task): void => setList((prev: Task[]): Task[] => [...prev, task])
+  const onSubmit = (task: Task): void => setList((prev: Task[]): Task[] => [...prev, task]);
 
   const handleDeleteTask = (id: number): void => {
     setList((prev) => prev.filter((task: Task) => task.id !== id));
@@ -32,29 +32,30 @@ export const App = () => {
     );
   };
 
+  useEffect(() => {
+    setCurrentPage(INITIAL_PAGE);
+  }, [activeFilter]);
 
   const handleSetActiveFilter = (filterName: FilterState): void => {
     setFilter(filterName);
   };
 
-  const getFilteredList = useMemo(():Task[]=> {
+  const getFilteredList = useMemo((): Task[] => {
     if (activeFilter === FilterState.ALL) {
       return list;
     }
     return list.filter((task) =>
       activeFilter === FilterState.COMPLETE ? task.isComplete : !task.isComplete,
     );
-  },[list, activeFilter]);
+  }, [list, activeFilter]);
 
   const paginatedTask = useMemo((): Task[] => {
     const start = (currentPage - INITIAL_PAGE) * TASK_PER_PAGE;
     const end = currentPage * TASK_PER_PAGE;
     return getFilteredList.slice(start, end);
-  }, [getFilteredList])
-
+  }, [getFilteredList, currentPage]);
 
   const totalPages = Math.ceil(getFilteredList.length / TASK_PER_PAGE);
-
 
   return (
     <>
@@ -64,7 +65,6 @@ export const App = () => {
       <Filters
         onSetActiveFilter={handleSetActiveFilter}
         activeFilter={activeFilter}
-        onSetCurrentPage={setCurrentPage}
       />
       <Pagination
         totalPages={totalPages}
