@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
 import { FilterState, Task } from '@/models/types';
@@ -36,42 +36,40 @@ export const App = () => {
     setFilter(filterName);
   };
 
-  const handleGetFilteredList = (): Task[] => {
+  const getFilteredList = useMemo(():Task[]=> {
     if (activeFilter === FilterState.ALL) {
       return list;
     }
     return list.filter((task) =>
       activeFilter === FilterState.COMPLETE ? task.isComplete : !task.isComplete,
     );
-  };
+  },[list, activeFilter]);
 
   const getPaginatedTask = (): Task[] => {
     const start = (currentPage - INITIAL_PAGE) * TASK_PER_PAGE;
     const end = currentPage * TASK_PER_PAGE;
-    return handleGetFilteredList().slice(start, end);
+    return getFilteredList.slice(start, end);
   }
+  const paginatedTask:Task[] = getPaginatedTask();
 
-  const handleSetCurrentPage = (page: number): void => {
-    setCurrentPage(page)
-  }
+  const totalPages = Math.ceil(getFilteredList.length / TASK_PER_PAGE);
 
-  const totalPages = Math.ceil(handleGetFilteredList().length / TASK_PER_PAGE);
 
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
       <Form onSubmit={onSubmit} />
-      <List list={getPaginatedTask()} onDelete={handleDeleteTask} onComplete={toggleStatus} />
+      <List list={paginatedTask} onDelete={handleDeleteTask} onComplete={toggleStatus} />
       <Filters
         onSetActiveFilter={handleSetActiveFilter}
-        onCurrentFilter={activeFilter}
-        onSetCurrentPage={handleSetCurrentPage}
+        activeFilter={activeFilter}
+        onSetCurrentPage={setCurrentPage}
       />
       <Pagination
-        list={getPaginatedTask()}
+        list={paginatedTask}
         totalPages={totalPages}
         currentPage={currentPage}
-        onSetCurrentPage={handleSetCurrentPage}
+        onSetCurrentPage={setCurrentPage}
       />
     </>
   );
