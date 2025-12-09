@@ -1,4 +1,4 @@
-import { FilterState, INITIAL_PAGE } from '@/models/constants';
+import { FilterState } from '@/models/constants';
 import { TodoFiltersProps } from '@/models/types';
 
 import classes from './index.module.scss';
@@ -27,7 +27,7 @@ export const Filters = ({ onSetActiveFilter, activeFilter }: TodoFiltersProps) =
           key={value}
           title={label}
           onClick={(): void => {
-            onSetActiveFilter(value);          }}>
+            onSetActiveFilter(value);}}>
           {label}
         </button>
       ))}
