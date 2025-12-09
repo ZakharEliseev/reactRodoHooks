@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { ReactElement, useEffect, useMemo, useState } from 'react';
 
 import { INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
 import { FilterState, Task } from '@/models/types';
@@ -10,7 +10,7 @@ import { Pagination } from './Pagination';
 
 import classes from './App.module.scss';
 
-export const App = () => {
+export const App = (): ReactElement => {
   const [list, setList] = useState<Task[]>([]);
   const [activeFilter, setFilter] = useState(FilterState.ALL);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
