@@ -36,9 +36,6 @@ export const App = () => {
     setCurrentPage(INITIAL_PAGE);
   }, [activeFilter]);
 
-  const handleSetActiveFilter = (filterName: FilterState): void => {
-    setFilter(filterName);
-  };
 
   const getFilteredList = useMemo((): Task[] => {
     if (activeFilter === FilterState.ALL) {
@@ -49,23 +46,17 @@ export const App = () => {
     );
   }, [list, activeFilter]);
 
-
-  const start = (currentPage - INITIAL_PAGE) * TASK_PER_PAGE;
-  const end = currentPage * TASK_PER_PAGE;
-  const paginatedTask = getFilteredList.slice(start, end);
-
-
-  const totalPages = Math.ceil(getFilteredList.length / TASK_PER_PAGE);
+  const start: number = (currentPage - INITIAL_PAGE) * TASK_PER_PAGE;
+  const end: number = currentPage * TASK_PER_PAGE;
+  const totalPages: number = Math.ceil(getFilteredList.length / TASK_PER_PAGE);
+  const paginatedTask: Task[] = getFilteredList.slice(start, end);
 
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
       <Form onSubmit={onSubmit} />
       <List list={paginatedTask} onDelete={handleDeleteTask} onComplete={toggleStatus} />
-      <Filters
-        onSetActiveFilter={handleSetActiveFilter}
-        activeFilter={activeFilter}
-      />
+      <Filters onSetActiveFilter={setFilter} activeFilter={activeFilter} />
       <Pagination
         totalPages={totalPages}
         currentPage={currentPage}
