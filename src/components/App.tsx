@@ -1,5 +1,7 @@
 import { ReactElement, useEffect, useMemo, useState } from 'react';
 
+import { useSelector } from 'react-redux';
+
 import { INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
 import { FilterState, Task } from '@/models/types';
 
@@ -10,32 +12,16 @@ import { Pagination } from './Pagination';
 
 import classes from './App.module.scss';
 
+
 export const App = (): ReactElement => {
-  const [list, setList] = useState<Task[]>([]);
   const [activeFilter, setFilter] = useState(FilterState.ALL);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
+  const list: Task[] = useSelector((state: {tasks: {tasks: Task[]}}) => state.tasks.tasks)
 
-  const onSubmit = (task: Task): void => setList((prev: Task[]): Task[] => [...prev, task]);
-
-  const handleDeleteTask = (id: number): void => {
-    setList((prev) => prev.filter((task: Task) => task.id !== id));
-  };
-
-  const toggleStatus = (id: number): void => {
-    setList(
-      list.map((task: Task) => {
-        return {
-          ...task,
-          isComplete: task.id === id ? !task.isComplete : task.isComplete,
-        };
-      }),
-    );
-  };
 
   useEffect(() => {
     setCurrentPage(INITIAL_PAGE);
   }, [activeFilter]);
-
 
   const getFilteredList = useMemo((): Task[] => {
     if (activeFilter === FilterState.ALL) {
@@ -54,8 +40,8 @@ export const App = (): ReactElement => {
   return (
     <>
       <h1 className={classes.header}>ToDo</h1>
-      <Form onSubmit={onSubmit} />
-      <List list={paginatedTask} onDelete={handleDeleteTask} onComplete={toggleStatus} />
+      <Form/>
+      <List list={paginatedTask}/>
       <Filters onSetActiveFilter={setFilter} activeFilter={activeFilter} />
       <Pagination
         totalPages={totalPages}

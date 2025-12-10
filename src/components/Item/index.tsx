@@ -1,13 +1,18 @@
+import { useDispatch } from "react-redux";
+
 import { TodoItemProps } from "@/models/types";
+import { deleteTask, toggleStatusTask } from '@/store/todoSlice';
 
 import classes from './index.module.scss';
 
-export const Item = ({ task, onDelete, onComplete }: TodoItemProps) => {
+export const Item = ({ task}: TodoItemProps) => {
+  const dispatch = useDispatch();
+  const {text, id, isComplete} = task;
   return (
     <li>
-      <button onClick={() => onDelete(task.id)}>Delete</button>
-      <p className={task.isComplete ? classes.todoCompleteTask : ''}>{task.text}</p>
-      <button onClick={() => onComplete(task.id)}>Complete</button>
+      <button onClick={() => dispatch(deleteTask({ id }))}>Delete</button>
+      <p className={isComplete ? classes.todoCompleteTask : ''}>{text}</p>
+      <button onClick={() => dispatch(toggleStatusTask({id}))}>Complete</button>
     </li>
   );
 };

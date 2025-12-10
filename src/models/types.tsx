@@ -4,19 +4,11 @@ export interface Task {
   isComplete: boolean;
 }
 
-export interface TodoFormProps {
-  onSubmit: (task: Task) => void;
-}
-
 export interface TodoItemProps {
-  onDelete: (id: number) => void;
-  onComplete: (id: number) => void;
-  task: Task;
+ task: Task
 }
 
 export interface TodoListItemProps {
-  onDelete: (id: number) => void;
-  onComplete: (id: number) => void;
   list: Task[];
 }
 
@@ -29,7 +21,7 @@ export enum FilterState {
 export interface TodoFiltersProps {
   onSetActiveFilter: (filterName: FilterState) => void;
   activeFilter: FilterState;
-};
+}
 
 export interface TodoPaginatorProps {
   onSetCurrentPage: (page: number) => void;
