@@ -12,12 +12,10 @@ import { Pagination } from './Pagination';
 
 import classes from './App.module.scss';
 
-
 export const App = (): ReactElement => {
   const [activeFilter, setFilter] = useState(FilterState.ALL);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
   const list: Task[] = useSelector((state: {tasks: {tasks: Task[]}}) => state.tasks.tasks)
-
 
   useEffect(() => {
     setCurrentPage(INITIAL_PAGE);
