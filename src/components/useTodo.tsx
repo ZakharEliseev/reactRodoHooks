@@ -5,8 +5,6 @@ import { useSelector } from 'react-redux';
 import { FilterState, INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
 import { Task } from '@/store/todoSlice';
 
-
-
 export const useTodo = () => {
   const [activeFilter, setFilter] = useState(FilterState.ALL);
   const [currentPage, setCurrentPage] = useState(INITIAL_PAGE);
