@@ -1,5 +1,10 @@
-import { Task } from '@/models/types';
 import { createSlice } from '@reduxjs/toolkit';
+
+export interface Task {
+  id: number;
+  text: string;
+  isComplete: boolean;
+}
 
 const todoSlice = createSlice({
   name: 'tasks',
@@ -18,8 +23,9 @@ const todoSlice = createSlice({
       state.tasks = state.tasks.filter((task) => task.id !== action.payload.id);
     },
     toggleStatusTask(state, action) {
-      const toggledTodo = state.tasks.find((todo) => todo.id === action.payload.id);
-      if (toggledTodo) toggledTodo.isComplete = !toggledTodo.isComplete;
+      state.tasks = state.tasks.map((task: Task) => (
+        task.id === action.payload.id ? {...task, isComplete: !task.isComplete} : task
+      ))
     },
   },
 });

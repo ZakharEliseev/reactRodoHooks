@@ -1,12 +1,14 @@
 import { useDispatch } from "react-redux";
 
-import { TodoItemProps } from "@/models/types";
-import { deleteTask, toggleStatusTask } from '@/store/todoSlice';
+import { Task, deleteTask, toggleStatusTask } from '@/store/todoSlice';
 
 import classes from './index.module.scss';
 
-export const Item = ({ task: { text, id, isComplete } }: TodoItemProps) => {
+interface TodoItemProps {
+  task: Task;
+}
 
+export const Item = ({ task: { text, id, isComplete } }: TodoItemProps) => {
   const dispatch = useDispatch();
   
   return (

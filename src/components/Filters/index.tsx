@@ -1,5 +1,4 @@
 import { FilterState } from '@/models/constants';
-import { TodoFiltersProps } from '@/models/types';
 
 import classes from './index.module.scss';
 
@@ -17,6 +16,11 @@ const filtersMap = [
     value: FilterState.COMPLETE,
   },
 ];
+
+interface TodoFiltersProps {
+  onSetActiveFilter: (filterName: FilterState) => void;
+  activeFilter: FilterState;
+}
 
 export const Filters = ({ onSetActiveFilter, activeFilter }: TodoFiltersProps) => {
   return (

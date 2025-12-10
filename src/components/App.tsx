@@ -2,8 +2,8 @@ import { ReactElement, useEffect, useMemo, useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
-import { INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
-import { FilterState, Task } from '@/models/types';
+import { FilterState, INITIAL_PAGE, TASK_PER_PAGE } from '@/models/constants';
+import { Task } from '@/store/todoSlice';
 
 import { Filters } from './Filters';
 import { Form } from './Form';
