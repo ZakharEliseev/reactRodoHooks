@@ -7,9 +7,9 @@ import classes from './index.module.scss';
 export const List = ({ list}: TodoListItemProps) => {
   return (
     <ul className={classes.todoList}>
-      {list.map((task) => {
-        return <Item task={task} key={task.id}  />;
-      })}
+      {list.map((task) => (
+         <Item task={task} key={task.id}  />
+      ))}
     </ul>
   );
 };
