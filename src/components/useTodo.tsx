@@ -14,7 +14,7 @@ export const useTodo = () => {
     setCurrentPage(INITIAL_PAGE);
   }, [activeFilter]);
 
-  const getFilteredList = useMemo((): Task[] => {
+  const filteredList = useMemo((): Task[] => {
     if (activeFilter === FilterState.ALL) {
       return list;
     }
@@ -25,8 +25,8 @@ export const useTodo = () => {
 
   const start: number = (currentPage - INITIAL_PAGE) * TASK_PER_PAGE;
   const end: number = currentPage * TASK_PER_PAGE;
-  const totalPages: number = Math.ceil(getFilteredList.length / TASK_PER_PAGE);
-  const paginatedTask: Task[] = getFilteredList.slice(start, end);
+  const totalPages: number = Math.ceil(filteredList.length / TASK_PER_PAGE);
+  const paginatedTask: Task[] = filteredList.slice(start, end);
 
   return {
     tasks: paginatedTask,
